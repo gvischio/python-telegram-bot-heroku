@@ -55,7 +55,7 @@ def weekly_job(bot, update, job_queue):
     job_queue.run_daily(notify_roles, t, days=(3), context=update)
 
 
-def notify_roles(bot, job):
+def notify_roles(update, context):
     resto = (today.isocalendar()[1]) % 4
     nomi = ["Valentina", "Nicola", "Giacomo", "Asia"]
     turni = ["Cucina", "Bagno", "Spazzatura", "Pavimenti"]
@@ -67,7 +67,8 @@ def notify_roles(bot, job):
         #messaggi[i] = nomi[i] + "  : " + turni[(i + resto) % 4]
         #toPrint = toPrint + messaggi[i] + "\n"
     #dp.sendMessage(chat_id="Ruoli", text=toPrint)
-    bot.sendMessage(chat_id="Ruoli", text=toPrint)
+
+    update.message.reply_text(toPrint)
 
 
 def main():
