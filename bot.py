@@ -1,6 +1,11 @@
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import os
+
+from datetime import date
+import datetime
+today=date.today()
+
 PORT = int(os.environ.get('PORT', 5000))
 
 # Enable logging
@@ -19,6 +24,12 @@ def start(update, context):
 def help(update, context):
     """Send a message when the command /help is issued."""
     update.message.reply_text('Help!')
+
+def rifiuti(update, context):
+    """Send a message when the command /rifiuti is issued."""
+    rifiuti= ["Residuo, vetro, organico", "","","Carta, organico", "Imballaggi", "",""]
+    weekday= today.weekday()
+    update.message.reply_text('Rifiuti per il giorno di oggi: '+ rifiuti[weekday])
 
 def echo(update, context):
     """Echo the user message."""
@@ -40,13 +51,29 @@ def main():
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("rifiuti", rifiuti))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, echo))
 
     # log all errors
     dp.add_error_handler(error)
+
+    # to print message at certain time
+    giorno = today.weekday()
+    settimana = today.isocalendar()[1]
+    ora=datetime.datetime.now().hour
+    minuti=datetime.datetime.now().minute
+    resto= settimana % 4
+    nomi=["Valentina", "Nicola", "Giacomo", "Asia"]
+    turni=["Cucina", "Bagno", "Spazzatura", "Pavimenti"]
+    messaggi=["Valentina: Pavimenti", "Nicola: Cucina", "Giacomo: Bagno", "Asia: Cucina"]
+    toPrint=""
+    if giorno==0 and ora==8 and minuti==0 :
+        for i in range(4):
+            messaggi[i]=nomi[i] + "  : "+ turni[(i + resto)%4]
+            toPrint=toPrint + messaggi[i] + "\n"
+    #bot.sendMessage(chat_id="Ruoli", text=toPrint)
 
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",

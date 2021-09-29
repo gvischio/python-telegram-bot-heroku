@@ -79,10 +79,6 @@ def main():
             toPrint=toPrint + messaggi[i] + "\n"
     bot.sendMessage(chat_id="Ruoli", text=toPrint)
     
-
-
-
-
     # Start the Bot
     updater.start_webhook(listen="0.0.0.0",
                           port=int(PORT),
