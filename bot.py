@@ -83,6 +83,7 @@ def main():
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("rifiuti", rifiuti))
+    dp.add_handler(CommandHandler("turni", notify_roles))
 
     # on noncommand i.e message - echo the message on Telegram
     #dp.add_handler(MessageHandler(Filters.text, echo))
