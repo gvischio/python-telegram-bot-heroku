@@ -63,7 +63,7 @@ def notify_roles(update, context):
                 "Giacomo: Bagno", "Asia: Cucina"]
     toPrint = ""
     for i in range(4):
-        toPrint += nomi[i] + "  : " + turni[(i + resto) % 4] + "\n"
+        toPrint += nomi[i] + ": " + turni[(i + resto) % 4] + "\n"
         #messaggi[i] = nomi[i] + "  : " + turni[(i + resto) % 4]
         #toPrint = toPrint + messaggi[i] + "\n"
     #dp.sendMessage(chat_id="Ruoli", text=toPrint)
